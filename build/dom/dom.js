@@ -794,8 +794,29 @@ function normalizeString(s) { return s.replace(STRING_TRIM_EXP,'').replace(WS_MU
             getTarget : getTarget, 
             addCallback : addCallback,
             removeCallback : removeCallback,
-            preventDefault : preventDefault
+            preventDefault : preventDefault,
+            stopPropagation: stopPropagation
     });
+    
+    /**
+     * @param {Event}
+     */
+    function stopPropagation(e) {
+      e = e || window.event;
+      var f;
+      if (typeof e.stopPropagation == 'function') {
+        f = function(e) {
+          e.stopPropagation();
+        }
+      }
+      else if ('cancelBubble' in e) {
+        f = function(e) {
+          e = e || window.event;
+          e.cancelBubble = true;
+        }
+      }
+      (APE.dom.Event.stopPropagation = f)(e);
+    }
     
     function getTarget(e) {
         return (e || event)[eventTarget];
