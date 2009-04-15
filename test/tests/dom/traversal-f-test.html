@@ -105,6 +105,15 @@ var viewportTestCase = new YAHOO.tool.TestCase({
     testGetChildElements : function() {
         var all = dom.getChildElements(cont);
         Assert.areEqual(3, all.length);
+    },
+    
+    testIsTagName: function() {
+      var div = document.createElement('div');
+      Assert.isTrue(APE.dom.isTagName(document.body, 'body'));
+      Assert.isTrue(APE.dom.isTagName(document.body, 'BODY'));
+      Assert.isFalse(APE.dom.isTagName(div, 'body'));
+      Assert.isTrue(APE.dom.isTagName(div, 'div'));
+      div = null;
     }
 });
 

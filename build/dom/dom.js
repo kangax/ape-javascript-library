@@ -578,11 +578,13 @@ APE.namespace("APE.dom" );
         hasToken : hasToken,
         removeClass : removeClass,
         addClass : addClass,
+        hasClass: hasClass,
         getElementsByClassName : getElementsByClassName,
         findAncestorWithClass : findAncestorWithClass
     });
 
     var className = "className";
+    
     /** @param {String} s string to search
      * @param {String} token white-space delimited token the delimiter of the token.
      * This is generally used with element className:
@@ -614,6 +616,15 @@ APE.namespace("APE.dom" );
     function addClass(el, klass) {
         if(!el[className]) el[className] = klass;
         if(!getTokenizedExp(klass).test(el[className])) el[className] += " " + klass;
+    }
+    
+    /** @param {HTMLElement} el
+     * @param {String} klass value to be tested against
+     * @description Checks whether an element has <code>klass</code> as part of its <code>className</code>
+     */
+    function hasClass(el, klass) {
+      if (!el[className]) return false;
+      return hasToken(el[className], klass);
     }
 
     var Exps = { };
@@ -680,13 +691,14 @@ function normalizeString(s) { return s.replace(STRING_TRIM_EXP,'').replace(WS_MU
         tagExp = /^[A-Z]/;
         
     APE.mixin(
-        APE.dom, {
-        contains : getContains(),
-        findAncestorWithAttribute : findAncestorWithAttribute,
-        findAncestorWithTagName : findAncestorWithTagName,
-        findNextSiblingElement : findNextSiblingElement,
-        findPreviousSiblingElement : findPreviousSiblingElement,
-        getChildElements : getChildElements
+      APE.dom, {
+        contains :                    getContains(),
+        findAncestorWithAttribute :   findAncestorWithAttribute,
+        findAncestorWithTagName :     findAncestorWithTagName,
+        findNextSiblingElement :      findNextSiblingElement,
+        findPreviousSiblingElement :  findPreviousSiblingElement,
+        getChildElements :            getChildElements,
+        isTagName:                    isTagName
     });
 
     /** 
@@ -776,6 +788,16 @@ function normalizeString(s) { return s.replace(STRING_TRIM_EXP,'').replace(WS_MU
             ret[ret.length] = c;
         }
         return ret;
+    }
+    
+    /** 
+     * @memberOf APE.dom
+     * @param {HTMLElement} el element whose <code>tagName</code> is to be tested
+     * @param {String} tagName value to test against
+     * @return {boolean} true if element's <code>tagName</code> matches given one
+     */
+    function isTagName(el, tagName) {
+      return el.tagName == tagName[caseTransform]();
     }
 })();/**
  * @requires APE.dom.Viewport

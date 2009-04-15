@@ -10,13 +10,14 @@ APE.namespace("APE.dom");
         tagExp = /^[A-Z]/;
         
     APE.mixin(
-        APE.dom, {
-        contains : getContains(),
-        findAncestorWithAttribute : findAncestorWithAttribute,
-        findAncestorWithTagName : findAncestorWithTagName,
-        findNextSiblingElement : findNextSiblingElement,
-        findPreviousSiblingElement : findPreviousSiblingElement,
-        getChildElements : getChildElements
+      APE.dom, {
+        contains :                    getContains(),
+        findAncestorWithAttribute :   findAncestorWithAttribute,
+        findAncestorWithTagName :     findAncestorWithTagName,
+        findNextSiblingElement :      findNextSiblingElement,
+        findPreviousSiblingElement :  findPreviousSiblingElement,
+        getChildElements :            getChildElements,
+        isTagName:                    isTagName
     });
 
     /** 
@@ -106,5 +107,15 @@ APE.namespace("APE.dom");
             ret[ret.length] = c;
         }
         return ret;
+    }
+    
+    /** 
+     * @memberOf APE.dom
+     * @param {HTMLElement} el element whose <code>tagName</code> is to be tested
+     * @param {String} tagName value to test against
+     * @return {boolean} true if element's <code>tagName</code> matches given one
+     */
+    function isTagName(el, tagName) {
+      return el.tagName == tagName[caseTransform]();
     }
 })();

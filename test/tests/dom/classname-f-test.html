@@ -89,6 +89,16 @@ var classNameTestCase = new YAHOO.tool.TestCase({
         Assert.areEqual(n.className, 'x');
     },
     
+    testHasClass: function() {
+      var el = document.createElement('div');
+      el.className = 'foo bar-baz qux';
+      Assert.isTrue(APE.dom.hasClass(el, 'foo'));
+      Assert.isFalse(APE.dom.hasClass(el, 'bar'));
+      Assert.isFalse(APE.dom.hasClass(el, 'nada'));
+      // testing for empty value should return false
+      Assert.isFalse(APE.dom.hasClass(el, ''));
+    },
+    
     testGetElementsByClassName : function() {
         
         template.innerHTML = "<a class='red red red'>a</a><u class='red'>u</u>";
