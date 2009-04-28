@@ -17,7 +17,8 @@ APE.namespace("APE.dom");
         findNextSiblingElement :      findNextSiblingElement,
         findPreviousSiblingElement :  findPreviousSiblingElement,
         getChildElements :            getChildElements,
-        isTagName:                    isTagName
+        isTagName:                    isTagName,
+        selectOptionByValue:          selectOptionByValue
     });
 
     /** 
@@ -111,11 +112,28 @@ APE.namespace("APE.dom");
     
     /** 
      * @memberOf APE.dom
+     * @method isTagName
      * @param {HTMLElement} el element whose <code>tagName</code> is to be tested
      * @param {String} tagName value to test against
      * @return {boolean} true if element's <code>tagName</code> matches given one
      */
     function isTagName(el, tagName) {
       return el.tagName == tagName[caseTransform]();
+    }
+    
+    /**
+     * Given HTMLSelectElement and a value, selects corresponding option element by value
+     * @memberOf APE.dom
+     * @method selectOptionByValue
+     * @param {HTMLSelectElement} element
+     * @param {String} value
+     */
+    function selectOptionByValue(element, value) {
+      for (var i=0, o = element.options, l=o.length; i<l; i++) {
+        if (o[i].value === value) {
+          element.selectedIndex = i;
+          return;
+        }
+      }
     }
 })();

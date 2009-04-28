@@ -1,13 +1,17 @@
 APE.namespace("APE.dom");
+
 /**
  * @requires APE.dom.style-f.js
  */
 (function(){
 	var dom = APE.dom;
-/** @function 
- * @return {Object} {x: Number, y:Number} */
-    dom.getPixelCoords = getPixelCoords;
-	function getPixelCoords(el){
+  dom.getPixelCoords = getPixelCoords;
+  
+  /**
+   * @param {HTMLElement} el
+   * @return {Object} {x: Number, y:Number} 
+   */
+	function getPixelCoords(el) {
         var f = (dom.IS_COMPUTED_STYLE ? function(el) {
             var cs = el.ownerDocument.defaultView.getComputedStyle(el, "");
             return {

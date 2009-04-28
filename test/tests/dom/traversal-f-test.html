@@ -114,6 +114,21 @@ var viewportTestCase = new YAHOO.tool.TestCase({
       Assert.isFalse(APE.dom.isTagName(div, 'body'));
       Assert.isTrue(APE.dom.isTagName(div, 'div'));
       div = null;
+    },
+    
+    testSelectOptionByValue: function() {
+      var el = document.createElement('select');
+      el.appendChild(new Option('foo', 'foo value'));
+      el.appendChild(new Option('bar', 'bar value'));
+      el.appendChild(new Option('bar', 'baz value'));
+      
+      APE.dom.selectOptionByValue(el, 'baz value');
+      Assert.areEqual(2, el.selectedIndex);
+      Assert.isTrue(el.options[2].selected);
+      
+      APE.dom.selectOptionByValue(el, 'foo value');
+      Assert.areEqual(0, el.selectedIndex);
+      Assert.isTrue(el.options[0].selected);
     }
 });
 
