@@ -82,16 +82,15 @@
         if(!value || (desiredUnit && value.indexOf(desiredUnit) === -1) 
             || p.indexOf("border") === 0 && borderWidthExp.test(value)) {
 
-            if(currentStyle in el) {
-                value = getCascadedFromCurrent(el, p, desiredUnit);
-            }
-
-            else {
-                if(borderRadiusExp.test(p)) {
-                    p = borderRadiusExp.exec(p)[0];
-                }
-                value = getCascadedFromComputed(el, p, desiredUnit);
-            }
+           if (IS_COMPUTED_STYLE) {
+             if (borderRadiusExp.test(p)) {
+               p = borderRadiusExp.exec(p)[0];
+             }
+             value = getCascadedFromComputed(el, p, desiredUnit);
+           }
+           else if (currentStyle in el) {
+             value = getCascadedFromCurrent(el, p, desiredUnit);
+           }
         }
         return value;
     }

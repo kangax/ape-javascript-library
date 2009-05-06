@@ -36,7 +36,7 @@
 <div id="container" style="position: absolute; top: 0; left: 0;font-size: 0;">
     <!-- isInsideElement -->
     <!-- 20 + 11 = 33 -->
-    <a id="overlapping" style='position: absoulte; top: 20px; right: 0; height: 0;border: 11px solid #ccc;background: #900'></a>
+    <a id="overlapping" style='position: absolute; top: 20px; right: 0; height: 0;border: 11px solid #ccc;background: #900'></a>
  
     <!-- +12 -->
         <div id="c1" style="position: absolute; top: 2px;height: 6px;background: #00c;left: 0;">
@@ -112,7 +112,7 @@ var cascadedStyleTestCase = new TestCase({
         var foundFontSize = dom.getCascadedStyle(testNode, "fontSize", "em" );
         var foundPadding = dom.getCascadedStyle(testNode, "paddingBottom", "em" );
         var foundHeight = dom.getCascadedStyle(testNode, "height", "em" );
-
+        
         Assert.areEqual( "13em", foundFontSize );
         Assert.areEqual( "6em", foundPadding, "em" );
         Assert.areEqual( "50em", foundHeight, "height was wrong." );
