@@ -381,6 +381,7 @@ var getStyleTestCase = new TestCase({
             expected = "";
         }
         var actual = dom.getStyle(document.body, "borderRadius");
+        
         if(expected == '')
             YAHOO.log("This browser doesn't support border-radius" , 'warn', "TestRunner"); 
         Assert.areEqual(expected, actual);

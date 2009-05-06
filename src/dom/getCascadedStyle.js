@@ -83,6 +83,13 @@
             || p.indexOf("border") === 0 && borderWidthExp.test(value)) {
 
            if (IS_COMPUTED_STYLE) {
+             /*
+             // 1 match should be faster than exec + test
+             var m;
+             if (m = p.match(borderRadiusExp)) {
+               p = m[0];
+             }
+             */
              if (borderRadiusExp.test(p)) {
                p = borderRadiusExp.exec(p)[0];
              }

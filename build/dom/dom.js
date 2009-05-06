@@ -1116,7 +1116,10 @@ APE.namespace("APE.dom.Event");
     var sty = document.documentElement[style],
         floatProp = 'cssFloat'in sty ? 'cssFloat': 'styleFloat',
         props = ["Top", "Right", "Bottom", "Left"],
-        cornerProps = ["Topright", "Bottomright", "Bottomleft", "Topleft"];
+        isShorthandNonstandard = ('WebkitBorderTopLeftRadius' in sty),
+        cornerProps = isShorthandNonstandard
+          ? ["TopRight", "BottomRight", "BottomLeft", "TopLeft"]
+          : ["Topright", "Bottomright", "Bottomleft", "Topleft"];
         sty = null;
 
     function getCurrentStyleValueFromAuto(el, p) {
@@ -1166,7 +1169,8 @@ APE.namespace("APE.dom.Event");
             values,
             allEqual = true, 
             propertyList,
-            i = 1;
+            i = 1,
+            isBorderRadius;
         
         if(multiMatch && multiMatch[0]) {
             propertyList = props;
@@ -1175,16 +1179,21 @@ APE.namespace("APE.dom.Event");
         }
         else if(borderRadiusExp.test(p)) {
            propertyList = cornerProps;
-            prefix = borderRadiusExp.exec(p)[0];
-            suffix = ""; 
+           prefix = borderRadiusExp.exec(p)[0];
+           suffix = ""; 
+           isBorderRadius = true;
         }
         else return [""];
-
-        prevValue = cs[prefix + propertyList[0] + suffix ];
+        
+        prevValue = (isBorderRadius && isShorthandNonstandard) 
+          ? cs['WebkitBorder' + propertyList[0] + 'Radius']
+          : cs[prefix + propertyList[0] + suffix ];
         values = [prevValue];
 
         while(i < 4) {
-            nextValue = cs[prefix + propertyList[i] + suffix];
+            nextValue = (isBorderRadius && isShorthandNonstandard) 
+              ? cs['WebkitBorder' + propertyList[i] + 'Radius']
+              : cs[prefix + propertyList[i] + suffix ];
             allEqual = allEqual && nextValue == prevValue;
             prevValue = nextValue;
             values[i++] = nextValue;
