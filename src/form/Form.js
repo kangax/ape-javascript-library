@@ -58,7 +58,7 @@ APE.form.Form.prototype = {
                 for(j = 0, jlen = options.length; j < jlen; j++) {
                     option = options[j];
                     if(option.selected) {
-                      p[plen] = option.value || option.text;
+                      p[p.length] = option.value || option.text;
                     }
                 }
             }
