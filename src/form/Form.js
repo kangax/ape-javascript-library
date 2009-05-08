@@ -28,11 +28,12 @@ APE.form.Form.prototype = {
             // in elements collection.
            submitTypeExp = /^(?:submit|image)$/;
 
-        if(!elements) {
-            form = document.createElement('form').
-                appendChild(form.cloneNode(true)).parentNode;
-            elements = form.elements;
-        }
+				// could be an HTMLFieldsetElement (in that case use its `form` property
+				// which should reference HTMLFormElement it's contained within)
+				if (!elements && form.form && form.form.elements) {
+					form = form.form;
+					elements = form.elements;
+				}
 
         for(i = 0, len = elements.length; i < len; i++) {
             element = elements[i];
