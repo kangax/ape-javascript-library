@@ -19,7 +19,7 @@
     function getElementById(id) {
         var el = Function.prototype.call.call(orig, this, id), els, i;
 
-        if(el.id == id) return el;
+        if(el && el.id == id) return el;
         els = this.getElementsByName(id);
 
         for(i = 0; i < els.length; i++)
