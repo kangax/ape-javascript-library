@@ -225,7 +225,7 @@ var getStyleTestCase = new TestCase({
         // Use a for-in loop and swallow errors on things like functions or length.
         for(var prop in style) {
           if (typeof style[prop] == 'string') {
-            style[prop] = "";
+            try { style[prop] = ""; } catch(e) { }
           }
         }
         style = null;

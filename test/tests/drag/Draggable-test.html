@@ -255,8 +255,8 @@ var draggableTestCase = new YAHOO.tool.TestCase({
             expectedLeft = document.body.offsetWidth - testNode.offsetWidth;
 
         // Make sure the coords are correct.
-        Assert.areEqual( expectedTop, coords.y, 'coords y was wrong' );
-        Assert.areEqual( expectedLeft, coords.x, 'coords x was wrong' );
+        Assert.areEqual( expectedTop, Math.round(parseFloat(coords.y)), 'coords y was wrong' );
+        Assert.areEqual( expectedLeft, parseFloat(coords.x), 'coords x was wrong' );
 
         d._setIeTopLeft();
 
@@ -270,8 +270,8 @@ var draggableTestCase = new YAHOO.tool.TestCase({
             top = testNode.style.top || cs.top,
             left = testNode.style.left || cs.left;
 
-        Assert.areEqual( expectedTop, parseInt(top), 'style.top was wrong' );
-        Assert.areEqual( expectedLeft, parseInt(left), 'style.left was wrong' );
+        Assert.areEqual( expectedTop, Math.round(parseFloat(top)), 'style.top was wrong' );
+        Assert.areEqual( expectedLeft, parseFloat(left), 'style.left was wrong' );
     },
 
     testSetHandle : function() {
