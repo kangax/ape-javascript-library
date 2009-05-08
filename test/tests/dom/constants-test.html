@@ -32,8 +32,8 @@ var domconstants = new TestCase({
 
     testTextContent : function() {
         var n = document.createElement('div');
-        n[dom.textContent] = "foo";
-        Assert.areSame("foo", n.innerHTML);
+				n.appendChild(document.createTextNode('foo'));
+        Assert.areSame('foo', n[dom.textContent]);
     },
 
     testIsComputedStyle : function() {
