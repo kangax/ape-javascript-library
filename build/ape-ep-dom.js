@@ -487,7 +487,7 @@ APE.EventPublisher.cleanUp = function() {
     }
 };
 if(window.CollectGarbage)
-    APE.EventPublisher.get( window, "onunload" ).addAfter( APE.EventPublisher.cleanUp, APE.EventPublisher );/**dom.js rollup: constants.js, viewport-f.js, position-f.js, classname-f.js,  traversal-f.js, Event.js, Event-coords.js, style-f.js, gebi-f.js */
+    APE.EventPublisher.get( window, "onunload" ).addAfter( APE.EventPublisher.cleanUp, APE.EventPublisher );/**dom.js rollup: constants.js, viewport-f.js, position-f.js, classname-f.js,  traversal-f.js, Event.js, Event-coords.js, style-f.js, gebi-f.js, getscript.js */
 APE.namespace("APE.dom" );
 (function(){
 	var dom = APE.dom,
@@ -1760,4 +1760,37 @@ APE.namespace("APE.dom.Event");
             if(els[i].id === id) return els[i];
         return null;
     };
+})();
+
+
+(function(){
+  
+  /**
+   * Given a url string, inserts a script element (corresponding to that url) into a document
+   * and invokes a callback when script is finished loading
+   * @method getScript
+   * @param {String} url
+   * @param {Function} callback
+   */
+  function getScript(url, callback) {
+  	var headEl = document.getElementsByTagName("head")[0],
+  	    scriptEl = document.createElement('script'), 
+  	    loading = true;
+
+  	scriptEl.type = 'text/javascript';
+  	scriptEl.onload = scriptEl.onreadystatechange = function(e) {
+  	  if (loading) {
+  	    if (typeof this.readyState == 'string' && 
+  	        this.readyState !== 'loaded' && 
+  	        this.readyState !== 'complete') return;
+    	  loading = false;
+    		callback(e || window.event);
+    		scriptEl = scriptEl.onload = scriptEl.onreadystatechange = null;
+    	}
+  	}
+  	scriptEl.src = url;
+  	headEl.appendChild(scriptEl);
+  }
+  
+  APE.dom.getScript = getScript;
 })();
